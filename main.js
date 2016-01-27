@@ -1,12 +1,11 @@
 var prompt = require('prompt');
-var Word = require('/word.js');
-
 prompt.start();
+var Word = require('./word.js');
 
 var game = {
-	wordBank: ['Leonardo', 'Donatello', 'Michelangelo', 'Raphael'];
-	guessesRemaining: 10;
-	currentWrd: null;
+	wordBank: ['leonardo', 'donatello', 'michelangelo', 'raphael'],
+	guessesRemaining: 10,
+	currentWrd: null,
 	startGame: function() {
 		num = Math.floor(Math.random() * (4 - 1) + 1)
 		var word = new Word(this.wordBank[num]);
@@ -18,16 +17,16 @@ var game = {
 	keepPromptingUser: function() {
 		var self = this;
 		prompt.get(["guessLetter"], function(err, result) {
-			console.log(“The Letter or space you guessed is ” + result.guessLetter);
+			console.log('The letter or space you guessed is ' + result.guessLetter);
 			var findHowManyOfUserGuess = self.currentWrd.checkIfLetterFound(result.guessLetter);
 			if (findHowManyOfUserGuess === 0) {
-				console.log("You guessed wrong!");
+				console.log('You guessed wrong!');
 				self.guessesRemaining -= 1;
 			}
 			else {
-				console.log("You guessed correctly!");
+				console.log('You guessed correctly!');
 				if (self.currentWrd.didWeFindTheWord() === true) {
-					console.log("You won!");
+					console.log('You won!');
 					return 1;
 				}
 				else {
@@ -39,8 +38,8 @@ var game = {
 				self.keepPromptingUser();
 			}
 			else if(self.guessesRemaining === 0) {
-				console.log("Game over bro!");
-				console.log("The correct word was " + self.currentWrd.word);
+				console.log('Game over bro!');
+				console.log('The correct word was ' + self.currentWrd.word);
 			}
 			else {
 				console.log(self.currentWrd.wordRender());
